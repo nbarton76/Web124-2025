@@ -1,6 +1,6 @@
 /*
  * Chapter 3 Project
- * Author: Nichelle Barton
+ * Nichelle Barton
  * September 24, 2025
  */
 
