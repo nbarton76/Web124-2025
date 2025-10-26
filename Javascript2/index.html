@@ -19,13 +19,15 @@
 <body>
 
   <div class="player">
-    <!-- 🎞️ Video section -->
-    <video class="player__video viewer" 
-       src="https://videos.pexels.com/videos/6864599-hd.mp4" 
-       poster="https://images.pexels.com/photos/30799267/pexels-photo-30799267.jpeg?auto=compress&cs=tinysrgb&w=1600"
-       controls>
-</video>
-
+    <!-- 🎞️ Embedded YouTube Video -->
+    <div class="player__video youtube">
+      <iframe width="560" height="315"
+        src="https://www.youtube.com/embed/dVYl5ImNjow"
+        title="YouTube video player" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
 
     <!-- 🎛️ Controls -->
     <div class="player__controls">
