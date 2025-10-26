@@ -1,5 +1,5 @@
 /*
- * Chapter 3 Project
+ * Javascript2
  * Nichelle Barton
  * October 01, 2025
  */
@@ -16,12 +16,12 @@ const ranges = player.querySelectorAll('.player__slider');
 
 /* Build out functions */
 function togglePlay() {
-  const method = video.paused ? 'play' : 'pause';
+  const method = video.paused ? 'play': 'pause';
   video[method]();
 }
 
 function updateButton() {
-  const icon = this.paused ? '►' : '❚ ❚';
+  const icon = this.paused? '►': '❚ ❚';
   console.log(icon);
   toggle.textContent = icon;
 }
