@@ -1,5 +1,8 @@
-/* Nichelle Barton */
-/* October 1, 2025*/
+/* -----------------------------------
+   Nichelle Barton
+   HTML Video Player Stylesheet
+   Updated: October 2025
+----------------------------------- */
 
 html {
   box-sizing: border-box;
@@ -13,102 +16,119 @@ body {
   margin: 0;
   padding: 0;
   display: flex;
-  background: #7A419B;
   min-height: 100vh;
-  background: linear-gradient(135deg, #7c1599 0%,#921099 48%,#7e4ae8 100%);
-  background-size: cover;
   align-items: center;
   justify-content: center;
+
+  /* 🎞️ Background: Black & White Vintage Radio Image */
+  background: url('https://images.pexels.com/photos/30799267/pexels-photo-30799267.jpeg?auto=compress&cs=tinysrgb&w=1600') 
+              no-repeat center center fixed;
+  background-size: cover;
+
+  font-family: "Poppins", "Segoe UI", sans-serif;
+  color: #f2f2f2;
 }
 
+/* 🎧 Player Container */
 .player {
   max-width: 750px;
-  border: 5px solid rgba(0,0,0,0.2);
-  box-shadow: 0 0 20px rgba(0,0,0,0.2);
-  position: relative;
-  font-size: 0;
+  border: none;
+  border-radius: 25px; /* Rounder corners */
   overflow: hidden;
+  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.55);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* This css is only applied when fullscreen is active. */
-.player:fullscreen {
-  max-width: none;
-  width: 100%;
+.player:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.6);
 }
 
+/* Fullscreen adjustments */
+.player:fullscreen,
 .player:-webkit-full-screen {
   max-width: none;
   width: 100%;
 }
 
+/* 🎬 Video */
 .player__video {
   width: 100%;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
 }
 
-.player__button {
-  background: none;
-  border: 0;
-  line-height: 1;
-  color: white;
-  text-align: center;
-  outline: 0;
-  padding: 0;
-  cursor: pointer;
-  max-width: 50px;
-}
-
-.player__button:focus {
-  border-color: #ffc600;
-}
-
-.player__slider {
-  width: 10px;
-  height: 30px;
-}
-
+/* 🎚 Controls */
 .player__controls {
   display: flex;
   position: absolute;
   bottom: 0;
   width: 100%;
-  transform: translateY(100%) translateY(-5px);
-  transition: all .3s;
   flex-wrap: wrap;
-  background: rgba(0,0,0,0.1);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  transform: translateY(100%) translateY(-5px);
+  transition: all 0.3s ease;
 }
 
 .player:hover .player__controls {
   transform: translateY(0);
 }
 
-.player:hover .progress {
-  height: 15px;
-}
-
 .player__controls > * {
   flex: 1;
 }
 
+/* 🎵 Buttons */
+.player__button {
+  background: none;
+  border: 0;
+  color: #ffc600;
+  font-size: 1.3rem;
+  padding: 10px;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.player__button:hover {
+  color: #ffffff;
+  transform: scale(1.2);
+}
+
+/* 🎚 Sliders */
+.player__slider {
+  width: 100px;
+  height: 25px;
+}
+
+/* 🎵 Progress Bar */
 .progress {
   flex: 10;
   position: relative;
   display: flex;
-  flex-basis: 100%;
-  height: 5px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
   transition: height 0.3s;
-  background: rgba(0,0,0,0.5);
   cursor: ew-resize;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.player:hover .progress {
+  height: 10px;
 }
 
 .progress__filled {
   width: 50%;
-  background: #ffc600;
-  flex: 0;
+  background: linear-gradient(90deg, #ffc600, #ff8a00);
   flex-basis: 50%;
+  transition: width 0.2s;
 }
 
-/* unholy css to style input type="range" */
-
+/* 🎚 Range Inputs */
 input[type=range] {
   -webkit-appearance: none;
   background: transparent;
@@ -121,45 +141,29 @@ input[type=range]:focus {
 }
 
 input[type=range]::-webkit-slider-runnable-track {
-  width: 100%;
-  height: 8.4px;
-  cursor: pointer;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0 0 1px rgba(13, 13, 13, 0);
-  background: rgba(255,255,255,0.8);
-  border-radius: 1.3px;
-  border: 0.2px solid rgba(1, 1, 1, 0);
+  height: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
 }
 
 input[type=range]::-webkit-slider-thumb {
-  height: 15px;
-  width: 15px;
-  border-radius: 50px;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
   background: #ffc600;
   cursor: pointer;
   -webkit-appearance: none;
-  margin-top: -3.5px;
-  box-shadow:0 0 2px rgba(0,0,0,0.2);
-}
-
-input[type=range]:focus::-webkit-slider-runnable-track {
-  background: #bada55;
-}
-
-input[type=range]::-moz-range-track {
-  width: 100%;
-  height: 8.4px;
-  cursor: pointer;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0 0 1px rgba(13, 13, 13, 0);
-  background: #ffffff;
-  border-radius: 1.3px;
-  border: 0.2px solid rgba(1, 1, 1, 0);
+  margin-top: -5px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 }
 
 input[type=range]::-moz-range-thumb {
-  box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 0 0 rgba(13, 13, 13, 0);
-  height: 15px;
-  width: 15px;
-  border-radius: 50px;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
   background: #ffc600;
   cursor: pointer;
 }
+
+/* 🎨 Font Import (optional fallback) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
