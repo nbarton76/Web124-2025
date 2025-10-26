@@ -1,33 +1,53 @@
-/let countdown;
+/* -------------------------------------------------
+   Nichelle Barton
+   Countdown Timer with Pause/Resume + Sound + Animation
+   Updated: October 2025
+-------------------------------------------------- */
+
+let countdown;
+let isPaused = false;
+let remainingTime = 0;
 const timerDisplay = document.querySelector('.display__time-left');
 const endTime = document.querySelector('.display__end-time');
 const buttons = document.querySelectorAll('[data-time]');
+const pauseBtn = document.getElementById('pauseBtn');
+const timesUpMessage = document.getElementById('timesUpMessage');
+
+// ✅ Added sound for when timer reaches zero
+const endSound = new Audio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_bbe8c20896.mp3?filename=notification-110855.mp3');
 
 function timer(seconds) {
-  // clear any existing timers
   clearInterval(countdown);
-
   const now = Date.now();
   const then = now + seconds * 1000;
   displayTimeLeft(seconds);
   displayEndTime(then);
+  remainingTime = seconds;
+
+  // ✅ Hide “Time’s Up!” message when a new timer starts
+  timesUpMessage.classList.remove('times-up-active');
 
   countdown = setInterval(() => {
-    const secondsLeft = Math.round((then - Date.now()) / 1000);
-    // check if we should stop it!
-    if(secondsLeft < 0) {
-      clearInterval(countdown);
-      return;
+    if (!isPaused) {
+      remainingTime--;
+      if (remainingTime < 0) {
+        clearInterval(countdown);
+        endSound.play();
+
+        // ✅ Show “Time’s Up!” message and animation
+        timesUpMessage.classList.add('times-up-active');
+        timerDisplay.textContent = "00:00";
+        return;
+      }
+      displayTimeLeft(remainingTime);
     }
-    // display it
-    displayTimeLeft(secondsLeft);
   }, 1000);
 }
 
 function displayTimeLeft(seconds) {
   const minutes = Math.floor(seconds / 60);
   const remainderSeconds = seconds % 60;
-  const display = `${minutes}:${remainderSeconds < 10 ? '0' : '' }${remainderSeconds}`;
+  const display = `${minutes}:${remainderSeconds < 10 ? '0' : ''}${remainderSeconds}`;
   document.title = display;
   timerDisplay.textContent = display;
 }
@@ -45,11 +65,17 @@ function startTimer() {
   timer(seconds);
 }
 
+// ✅ Pause/Resume logic toggle
+pauseBtn.addEventListener('click', () => {
+  isPaused = !isPaused;
+  pauseBtn.textContent = isPaused ? 'Resume' : 'Pause';
+});
+
 buttons.forEach(button => button.addEventListener('click', startTimer));
+
 document.customForm.addEventListener('submit', function(e) {
   e.preventDefault();
   const mins = this.minutes.value;
-  console.log(mins);
   timer(mins * 60);
   this.reset();
-});/ JavaScript code here
+});
