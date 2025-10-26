@@ -1,20 +1,18 @@
-/* -------------------------------------------------
+/* -----------------------------------
    Nichelle Barton
-   Countdown Timer 
+   Countdown Timer Script
    October 8, 2025
--------------------------------------------------- */
+----------------------------------- */
 
 let countdown;
 let isPaused = false;
-let remainingTime = 0;
+let remainingSeconds = 0;
 const timerDisplay = document.querySelector('.display__time-left');
 const endTime = document.querySelector('.display__end-time');
 const buttons = document.querySelectorAll('[data-time]');
-const pauseBtn = document.getElementById('pauseBtn');
-const timesUpMessage = document.getElementById('timesUpMessage');
-
-// ✅ Added sound for when timer reaches zero
-const endSound = new Audio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_bbe8c20896.mp3?filename=notification-110855.mp3');
+const customForm = document.getElementById('custom');
+const pauseButton = document.getElementById('pauseResume');
+const timeUpSound = new Audio('https://cdn.pixabay.com/audio/2022/03/15/audio_17c42b8c06.mp3');
 
 function timer(seconds) {
   clearInterval(countdown);
@@ -22,24 +20,19 @@ function timer(seconds) {
   const then = now + seconds * 1000;
   displayTimeLeft(seconds);
   displayEndTime(then);
-  remainingTime = seconds;
-
-  // ✅ Hide “Time’s Up!” message when a new timer starts
-  timesUpMessage.classList.remove('times-up-active');
-
+   
+// Added pause/resume//
   countdown = setInterval(() => {
     if (!isPaused) {
-      remainingTime--;
-      if (remainingTime < 0) {
+      const secondsLeft = Math.round((then - Date.now()) / 1000);
+      if (secondsLeft <= 0) {
         clearInterval(countdown);
-        endSound.play();
-
-        // ✅ Show “Time’s Up!” message and animation
-        timesUpMessage.classList.add('times-up-active');
-        timerDisplay.textContent = "00:00";
+        displayTimeLeft(0);
+        timeUp();
         return;
       }
-      displayTimeLeft(remainingTime);
+      remainingSeconds = secondsLeft;
+      displayTimeLeft(secondsLeft);
     }
   }, 1000);
 }
@@ -65,20 +58,33 @@ function startTimer() {
   timer(seconds);
 }
 
-// ✅ Pause/Resume logic toggle
-pauseBtn.addEventListener('click', () => {
+function togglePause() {
   isPaused = !isPaused;
-  pauseBtn.textContent = isPaused ? 'Resume' : 'Pause';
-});
+  pauseButton.textContent = isPaused ? '▶ Resume' : '⏸ Pause';
+}
+
+function timeUp() {
+  timeUpSound.play();
+  timerDisplay.classList.add('flash');
+  setTimeout(() => {
+    timerDisplay.classList.remove('flash');
+  }, 4000);
+}
 
 buttons.forEach(button => button.addEventListener('click', startTimer));
 
-const customForm = document.getElementById('custom');
-
-//updated nonworking function//
+//Fixed input form handling//
+//Added sound alert + flashing animation//
 customForm.addEventListener('submit', function(e) {
   e.preventDefault();
   const mins = this.minutes.value;
+  if (!mins || mins <= 0) return;
   timer(mins * 60);
   this.reset();
+});
+
+pauseButton.addEventListener('click', togglePause);
+
+document.addEventListener('keydown', (e) => {
+  if (e.code === 'Space') togglePause();
 });
