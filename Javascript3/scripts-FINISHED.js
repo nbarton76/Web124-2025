@@ -1,7 +1,7 @@
 /* -------------------------------------------------
    Nichelle Barton
-   Countdown Timer with Pause/Resume + Sound + Animation
-   Updated: October 2025
+   Countdown Timer 
+   October 8, 2025
 -------------------------------------------------- */
 
 let countdown;
@@ -73,7 +73,10 @@ pauseBtn.addEventListener('click', () => {
 
 buttons.forEach(button => button.addEventListener('click', startTimer));
 
-document.customForm.addEventListener('submit', function(e) {
+const customForm = document.getElementById('custom');
+
+//updated nonworking function//
+customForm.addEventListener('submit', function(e) {
   e.preventDefault();
   const mins = this.minutes.value;
   timer(mins * 60);
