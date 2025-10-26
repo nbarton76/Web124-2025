@@ -1,159 +1,140 @@
-/* -------------------------------------------------
+/* -----------------------------------
    Nichelle Barton
-   Countdown Timer
+   Countdown Timer Stylesheet
    October 8, 2025
--------------------------------------------------- */
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+----------------------------------- */
 
 html {
   box-sizing: border-box;
   font-size: 10px;
-  background: linear-gradient(135deg, #0d47a1, #42a5f5);
-  background-attachment: fixed;
-  color: #fff;
+  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
 }
 
-*, *::before, *::after {
+*, *:before, *:after {
   box-sizing: inherit;
 }
 
 body {
   margin: 0;
-  padding: 0;
   font-family: 'Poppins', sans-serif;
+  text-align: center;
+  color: white;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   min-height: 100vh;
 }
 
-/* ✅ Glassmorphism card container */
+/* Gradient background animation */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 .timer {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 2rem;
   width: 90%;
-  max-width: 600px;
-  background: rgba(255, 255, 255, 0.05);
+  max-width: 800px;
+  background: rgba(0, 0, 0, 0.35);
   border-radius: 20px;
-  padding: 3rem;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-  animation: fadeIn 0.6s ease-out forwards;
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.4);
 }
 
+/* Control buttons row */
 .timer__controls {
   display: flex;
   flex-wrap: wrap;
+  background: rgba(0,0,0,0.4);
+}
+
+.timer__controls > * {
+  flex: 1 1 33%;
+}
+
+.timer__controls form {
+  display: flex;
   justify-content: center;
-  gap: 1rem;
+  align-items: center;
+  padding: 0.5rem;
+  flex-wrap: wrap;
 }
 
-/* ✅ Modern glowing buttons */
-.timer__button {
-  border: none;
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-  font-size: 1.6rem;
-  font-weight: 600;
-  padding: 1rem 1.5rem;
-  border-radius: 12px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.timer__button:hover {
-  background: #ffc600;
-  color: #222;
-  transform: scale(1.08);
-  box-shadow: 0 0 10px #ffc600;
-}
-
-/* ✅ Styled input field */
 .timer__controls input {
   border: none;
-  border-radius: 10px;
-  padding: 1rem 1.2rem;
-  font-size: 1.4rem;
+  padding: 1rem;
+  font-size: 1.6rem;
+  border-radius: 8px;
+  margin: 0.5rem;
+}
+
+.timer__button {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: white;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 1rem;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.timer__button:hover,
+.timer__button:focus {
+  background: rgba(255,255,255,0.3);
   outline: none;
-  width: 140px;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
 }
 
-.timer__controls input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-/* ✅ Countdown display styling */
 .display {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 2rem;
 }
 
 .display__time-left {
+  font-size: 12rem;
+  margin: 0;
   font-weight: 700;
-  font-size: clamp(5rem, 12vw, 12rem);
-  color: #ffffff;
-  text-shadow: 0 0 25px #ffc600, 0 0 40px rgba(255, 198, 0, 0.3);
-  letter-spacing: 2px;
-  transition: transform 0.3s ease;
+  letter-spacing: -2px;
+  text-shadow: 0 0 30px rgba(255,255,255,0.6);
 }
 
-/* ✅ End time text */
 .display__end-time {
-  font-size: 2rem;
-  color: rgba(255, 255, 255, 0.8);
-  margin-top: 1rem;
-}
-
-/* ✅ Pause/Resume button style */
-#pauseBtn {
-  background: #ffc600;
-  color: #222;
-  font-weight: 700;
-  padding: 1rem 2rem;
-  font-size: 1.6rem;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-#pauseBtn:hover {
-  background: #ffb000;
-  box-shadow: 0 0 15px #ffc600;
-  transform: scale(1.05);
-}
-
-/* ✅ “Time’s Up!” message (hidden by default) */
-.times-up-message {
-  display: none;
   font-size: 3rem;
-  color: #ffc600;
-  font-weight: 700;
-  text-shadow: 0 0 20px #ffb000;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
+  color: rgba(255,255,255,0.8);
 }
 
-/* ✅ Flash + pulse animation for Time’s Up */
-@keyframes timesUpFlash {
-  0%, 100% { opacity: 1; transform: scale(1); text-shadow: 0 0 25px #ffc600; }
-  50% { opacity: 0.3; transform: scale(1.2); text-shadow: 0 0 50px #fff; }
+/* Flash animation for "Time’s up" */
+.flash {
+  animation: flashEffect 0.6s ease-in-out infinite alternate;
 }
 
-/* ✅ Fade-in animation */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes flashEffect {
+  from {
+    color: #ffffff;
+    text-shadow: 0 0 20px #ff3b3b, 0 0 40px #ff3b3b;
+  }
+  to {
+    color: #ff3b3b;
+    text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
+  }
 }
 
-/* ✅ Applied when timer ends */
-.times-up-active {
-  display: block;
-  animation: timesUpFlash 1s ease-in-out infinite;
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .display__time-left {
+    font-size: 7rem;
+  }
+  .display__end-time {
+    font-size: 2rem;
+  }
 }
