@@ -1,7 +1,7 @@
 /* -----------------------------------
    Nichelle Barton
    HTML Video Player Stylesheet
-   Updated: October 2025
+   Updated: October 1, 2025
 ----------------------------------- */
 
 html {
@@ -12,6 +12,7 @@ html {
   box-sizing: inherit;
 }
 
+/* 🖼️ Page Setup */
 body {
   margin: 0;
   padding: 0;
@@ -20,8 +21,8 @@ body {
   align-items: center;
   justify-content: center;
 
-  /* 🎞️ Background: Black & White Vintage Radio Image */
-  background: url('https://images.pexels.com/photos/30799267/pexels-photo-30799267.jpeg?auto=compress&cs=tinysrgb&w=1600') 
+  /* 🎞️ Background: Black & White Vintage Radio */
+  background: url('https://images.pexels.com/photos/30799267/pexels-photo-30799267.jpeg?auto=compress&cs=tinysrgb&w=1600')
               no-repeat center center fixed;
   background-size: cover;
 
@@ -33,7 +34,7 @@ body {
 .player {
   max-width: 750px;
   border: none;
-  border-radius: 25px; /* Rounder corners */
+  border-radius: 25px;
   overflow: hidden;
   backdrop-filter: blur(6px);
   background: rgba(0, 0, 0, 0.55);
@@ -54,14 +55,21 @@ body {
   width: 100%;
 }
 
-/* 🎬 Video */
+/* 🎬 Video Display */
 .player__video {
   width: 100%;
+  display: block;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
+  filter: grayscale(100%) contrast(1.1); /* adds vintage look */
+  transition: filter 0.4s ease;
 }
 
-/* 🎚 Controls */
+.player__video:hover {
+  filter: grayscale(70%) contrast(1.2);
+}
+
+/* 🎚 Custom Controls */
 .player__controls {
   display: flex;
   position: absolute;
