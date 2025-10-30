@@ -1,16 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Final Project - Calculator</title>
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
+  <!-- Nichelle Barton -->
+  <!-- October 29, 2025 -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Calculator</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main id="app">
-    <h1>Calculator</h1>
-    <div id="calculator"></div>
-  </main>
+  <div class="container">
+    <header>
+      <h1>JavaScript Calculator</h1>
+      <p>Enter a number and click <strong>Calculate!</strong> to see operations with numbers 1–10.</p>
+    </header>
+
+    <main>
+      <label for="num">Enter a number:</label>
+      <input type="number" id="num" placeholder="Enter a number" />
+
+      <button id="calcBtn">Calculate!</button>
+
+      <section class="results">
+        <h2>Results</h2>
+        <p id="addition"><strong>Addition:</strong> </p>
+        <p id="subtraction"><strong>Subtraction:</strong> </p>
+        <p id="multiplication"><strong>Multiplication:</strong> </p>
+        <p id="division"><strong>Division:</strong> </p>
+      </section>
+    </main>
+
+    <footer>
+      <p>Final Project by <strong>Nichelle Barton</strong> JavaScript Calculator</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
